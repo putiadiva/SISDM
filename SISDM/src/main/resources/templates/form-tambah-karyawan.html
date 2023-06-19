@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="d-flex justify-content-center">
+    <h2>Tambah Karyawan</h2>
+    <br><br>
+    <form th:action="@{/karyawan/tambah}" th:object="${karyawan}" method="POST">
+        <p>Nama Depan</p>
+        <input required class="form-control" type="text" th:field="*{namaDepan}"/>
+        <br><br>
+
+        <p>Nama Belakang</p>
+        <input required class="form-control" type="text" th:field="*{namaBelakang}"/>
+        <br><br>
+
+        <p>Email</p>
+        <input required class="form-control" type="text" th:field="*{email}"/>
+        <br><br>
+
+        <p>Tanggal Lahir</p>
+        <input required class="form-control" type="date" th:field="*{tanggalLahir}"/>
+        <br><br>
+
+        <p>Jenis Kelamin</p>
+        <select required th:field="*{jenisKelamin}">
+            <option th:value=${1}>Laki-laki</option>
+            <option th:value=${2}>Perempuan</option>
+        </select>
+
+        <p>Daftar Sertifikasi</p>
+        <table class="table">
+            <button class="btn btn-primary" type="submit" name="addRow">Tambah Sertifikasi</button>
+            <tbody th:each="sk, i : *{listSertifikasi}">
+            <tr>
+                <td>
+                    <select th:field="*{listSertifikasi[__${i.index}__].sertifikasi.idSertifikasi}">
+                        <div th:each="s, j : ${daftarSertifikasiExisting}">
+                            <option th:value="${s.idSertifikasi}" th:text="${s.nama}"></option>
+                        </div>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" type="date" th:field="*{listSertifikasi[__${i.index}__].tanggalPengambilan}"/>
+                </td>
+                <td>
+                    <button th:value="${i.index}" class="btn btn-danger" type="submit" name="deleteRow">
+                        Hapus
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-outline-primary" th:href="@{/karyawan}">Cancel</button>
+        <button class="btn btn-primary" type="submit" name="save">Submit</button>
+    </form>
+</div>
+</body>
+</html>

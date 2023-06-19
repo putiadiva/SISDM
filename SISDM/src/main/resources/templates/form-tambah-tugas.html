@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+  <div class="justify-content-center">
+    <h2>Tambah Tugas</h2>
+    <form th:action="@{/tambah-tugas}" th:object="${tugas}" method="POST">
+      Nama Tugas
+      <input required class="form-control" type="text" th:field="*{nama}"/>
+      <br><br>
+
+      Deskripsi
+      <input required class="form-control" type="text" th:field="*{deskripsi}"/>
+      <br><br>
+
+      Story Point
+      <input required class="form-control" type="number" th:field="*{storyPoint}"/>
+      <br><br>
+
+      Status
+      <select required th:field="*{status}">
+        <option th:value=${0} th:text="Dimulai"></option>
+        <option th:value=${1} th:text="Dikerjakan"></option>
+        <option th:value=${2} th:text="Selesai"></option>
+      </select>
+      <br><br>
+      <button class="btn btn-primary" type="submit">Simpan</button>
+      <a class="btn btn-outline-primary" th:href="@{/tugas}">Batal</a>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="card card-body">
+  <p th:text="'Presensi tanggal '+ ${presensi.tanggal} + ' atas nama ' + ${presensi.karyawan.namaDepan} + ' ' + ${presensi.karyawan.namaBelakang} + ' berhasil ditambahkan.'"></p>
+  <a class="btn btn-primary" href="/presensi">Kembali</a>
+</div>
+</body>
+</html>

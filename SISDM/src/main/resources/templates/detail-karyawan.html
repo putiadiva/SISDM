@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+    <div class="container">
+        <div class="justify-content-center">
+            <h2>Detail Karyawan</h2>
+            <a class="btn btn-sm btn-primary" th:href="@{/karyawan/} + ${karyawan.idKaryawan} + @{/ubah}">Ubah</a>
+            <form th:action="@{__${karyawan.idKaryawan}__/hapus}" method="post">
+                <button class="btn btn-outline-primary" type="submit">Hapus</button>
+            </form>
+            <br><br>
+            <h3>Nama</h3>
+            <p th:text="${karyawan.namaDepan} + ' ' + ${karyawan.namaBelakang}"></p>
+            <br><br>
+            <h3>Jenis Kelamin</h3>
+            <p th:if="${karyawan.jenisKelamin == 1}" th:text="Laki-laki"></p>
+            <p th:if="${karyawan.jenisKelamin == 2}" th:text="Perempuan"></p>
+            <br><br>
+            <h3>Tanggal Lahir</h3>
+            <p th:text="${karyawan.tanggalLahir}"></p>
+            <br><br>
+            <h3>Email</h3>
+            <p th:text="${karyawan.email}"></p>
+            <br><br>
+            <table class="table">
+                <h3>Daftar Sertifikasi</h3>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Sertifikasi</th>
+                        <th>No Sertifikasi</th>
+                        <th>Tanggal Pengambilan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="sk, i : ${sertifikasiThisKaryawan}">
+                        <td th:text="${i.count}"></td>
+                        <td th:text="${sk.sertifikasi.nama}"></td>
+                        <td th:text="${sk.noSertifikasi}"></td>
+                        <td th:text="${sk.tanggalPengambilan}"></td>
+                    </tr>
+                </tbody>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

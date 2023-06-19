@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+  <div class="justify-content-center">
+    <h2>Ubah Karyawan</h2>
+    <form th:action="@{/karyawan/__${karyawan.idKaryawan}__/ubah}" th:object="${karyawan}" method="POST">
+      <input type="hidden" name="idKaryawan" th:value="*{idKaryawan}" />
+
+      Nama Depan
+      <input required class="form-control" type="text" name="namaDepan" th:value="*{namaDepan}"/>
+      <br><br>
+        Nama Belakang
+      <input required class="form-control" type="text" name="namaBelakang" th:value="*{namaBelakang}"/>
+      <br><br>
+
+      Email
+      <input required class="form-control" type="text" name="email" th:value="*{email}"/>
+      <br><br>
+
+      Tanggal Lahir
+      <input required class="form-control" type="date" name="tanggalLahir" th:value="*{tanggalLahir}"/>
+      <br><br>
+
+      Jenis Kelamin
+      <br>
+      <select required name="jenisKelamin" th:field="*{jenisKelamin}">
+        <option value="1">Laki-laki</option>
+        <option value="2">Perempuan</option>
+      </select>
+      <br><br>
+
+      Daftar Sertifikasi
+      <table class="table">
+        <button class="btn btn-primary" type="submit" name="addRow">Tambah Sertifikasi</button>
+        <tbody th:each="sk, i : *{listSertifikasi}">
+        <tr>
+          <td>
+            <select th:field="*{listSertifikasi[__${i.index}__].sertifikasi.idSertifikasi}">
+              <div th:each="s, j : ${daftarSertifikasiExisting}">
+                <option th:value="${s.idSertifikasi}" th:text="${s.nama}"></option>
+              </div>
+            </select>
+          </td>
+          <td>
+            <input class="form-control" type="date" th:field="*{listSertifikasi[__${i.index}__].tanggalPengambilan}"/>
+          </td>
+          <td>
+            <button th:value="${i.index}" class="btn btn-danger" type="submit" name="deleteRow">
+              Hapus
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-primary" type="submit" name="updateKaryawan">Submit</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="d-flex justify-content-center">
+  <div class="m-4">
+    <h2>Welcome to SI SDM</h2>
+    <h3>List of Features:</h3>
+    <div class="justify-content-center">
+      <a th:href="@{/karyawan}" class="mx-2 btn btn-primary">Karyawan</a>
+      <a th:href="@{/presensi}" class="mx-2 btn btn-primary">Presensi</a>
+      <a th:href="@{/tambah-tugas}" class="mx-2 btn btn-primary">Tambah Tugas</a>
+      <a th:href="@{/filter-tugas}" class="mx-2 btn btn-primary">Filter Tugas</a>
+      <a th:href="@{/filter-sertifikasi}" class="mx-2 btn btn-primary">Filter Karyawan</a>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>

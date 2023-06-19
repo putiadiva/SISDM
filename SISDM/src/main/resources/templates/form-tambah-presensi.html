@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <div class="justify-content-center">
+        <h2>Tambah Presensi</h2>
+        <form th:action="@{/presensi/tambah}" th:object="${presensi}" method="POST">
+            Nama Karyawan
+            <select required th:field="*{karyawan.idKaryawan}">
+                <div th:each="k : ${daftarKaryawan}">
+                <option th:value="${k.idKaryawan}" th:text="${k.namaDepan} + ' ' + ${k.namaBelakang}"></option>
+                </div>
+            </select>
+            <br><br>
+
+            Tanggal
+            <input type="date" th:field="*{tanggal}">
+            <br><br>
+
+            Waktu Masuk
+            <input type="time" th:field="*{waktuMasuk}">
+            <br><br>
+
+            Waktu Keluar
+            <input type="time" th:field="*{waktuKeluar}">
+            <br><br>
+
+            Daftar Tugas
+            <table class="table">
+                <button class="btn btn-primary" type="submit" name="addRow">Tambah Tugas</button>
+                <tbody th:each="t, i : *{listTugas}">
+                <tr>
+                    <td>
+                        <select th:field="*{listTugas[__${i.index}__].idTugas}">
+                            <div th:each="tu, j : ${daftarTugas}">
+                                <option th:value="${tu.idTugas}" th:text="${tu.nama}"></option>
+                            </div>
+                        </select>
+                    </td>
+                    <td>
+                        <select th:field="*{listTugas[__${i.index}__].status}">
+                            <div th:each="s, k : ${daftarStatus}">
+                                <option th:value="${s}" th:text="${s}"></option>
+                            </div>
+<!--                            <option value="0">0</option>-->
+<!--                            <option value="1">1</option>-->
+<!--                            <option value="2">2</option>-->
+                        </select>
+                    </td>
+                    <td>
+                        <button th:value="${i.index}" class="btn btn-danger" type="submit" name="deleteRow">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <button class="btn btn-primary" type="submit">Simpan</button>
+            <!--      <button class="btn btn-primary" type="submit">Batal</button>-->
+        </form>
+    </div>
+</div>
+</body>
+</html>

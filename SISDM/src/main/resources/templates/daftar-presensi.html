@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <div class="justify-content-center">
+        <a class="btn btn-primary" th:href="@{presensi/tambah}" method="GET">Tambah Presensi</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Tanggal</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="p, i : ${daftarPresensi}">
+                <td th:text="${i.count}"></td>
+                <td th:text="${p.karyawan.namaDepan} + ' ' + ${p.karyawan.namaBelakang}"></td>
+                <td th:text="${p.tanggal}"></td>
+                <td th:if="${p.status == 0}">Terlambat</td>
+                <td th:if="${p.status == 1}">Tepat Waktu</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/presensi/} + ${p.idPresensi}">Detail</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

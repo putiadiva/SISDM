@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+  <div class="justify-content-center">
+    <h2>Detail Presensi</h2>
+    <a class="btn btn-primary" th:href="@{__${presensi.idPresensi}__/ubah}">Ubah</a>
+    <table class="table">
+      <tr>
+        <td>Nama Karyawan</td>
+        <td th:text="${presensi.karyawan.namaDepan} + ' ' + ${presensi.karyawan.namaBelakang}"></td>
+      </tr>
+      <tr>
+        <td>Tanggal Presensi</td>
+        <td th:text="${presensi.tanggal}"></td>
+      </tr>
+      <tr>
+        <td>Waktu Masuk</td>
+        <td th:text="${presensi.waktuMasuk}"></td>
+      </tr>
+      <tr>
+      <td>Waktu Masuk</td>
+      <td th:text="${presensi.waktuKeluar}"></td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td th:if="${presensi.status == 0}">Terlambat</td>
+        <td th:if="${presensi.status == 1}">Tepat Waktu</td>
+      </tr>
+    </table>
+    <table class="table">
+      <h3>Daftar Tugas</h3>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama</th>
+          <th>Deskripsi</th>
+          <th>Story Point</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="t : ${presensi.listTugas}">
+          <td th:text="${t.idTugas}"></td>
+          <td th:text="${t.nama}"></td>
+          <td th:text="${t.deskripsi}"></td>
+          <td th:text="${t.storyPoint}"></td>
+          <td th:if="${t.status == 0}">Dimulai</td>
+          <td th:if="${t.status == 1}">Dikerjakan</td>
+          <td th:if="${t.status == 2}">Selesai</td>
+        </tr>
+      </tbody>
+    </table>
+    <a class="btn btn-primary" th:href="@{/presensi}">Kembali</a>
+  </div>
+</div>
+</body>
+</html>

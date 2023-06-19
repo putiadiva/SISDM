@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<body>
+<div class="container">
+  <div class="justify-content-center">
+    <h2>Ubah Presensi</h2>
+    <form th:action="@{/presensi/__${presensi.idPresensi}__/ubah}" th:object="${presensi}" method="POST">
+      <input type="hidden" name="idPresensi" th:value="*{idPresensi}">
+
+      Nama Karyawan
+      <select required th:field="*{karyawan.idKaryawan}">
+        <div th:each="k : ${daftarKaryawan}">
+          <option th:value="${k.idKaryawan}" th:text="${k.namaDepan} + ' ' + ${k.namaBelakang}"></option>
+        </div>
+      </select>
+      <br><br>
+
+      Tanggal
+      <input type="date" name="tanggal" th:value="*{tanggal}">
+      <br><br>
+
+      Waktu Masuk
+      <input type="time" name="waktuMasuk" th:value="*{waktuMasuk}">
+      <br><br>
+
+      Waktu Keluar
+      <input type="time" name="waktuKeluar" th:value="*{waktuKeluar}">
+      <br><br>
+
+      <h3>Daftar Tugas</h3>
+      <table class="table">
+        <button class="btn btn-primary" type="submit" name="addRow">Tambah Tugas</button>
+        <tbody th:each="t, i : *{listTugas}">
+        <tr>
+          <td>
+            <select th:field="*{listTugas[__${i.index}__].idTugas}">
+              <div th:each="tu, j : ${daftarTugas}">
+                <option th:value="${tu.idTugas}" th:text="${tu.nama}"></option>
+              </div>
+            </select>
+          </td>
+          <td>
+            <select th:field="*{listTugas[__${i.index}__].status}">
+<!--              <div th:each="s, k : ${daftarStatus}">-->
+<!--                <option th:value="${s}" th:text="${s}"></option>-->
+<!--              </div>-->
+                                          <option value="0">Dimulai</option>
+                                          <option value="1">Dikerjakan</option>
+                                          <option value="2">Selesai</option>
+            </select>
+          </td>
+          <td>
+            <button th:value="${i.index}" class="btn btn-danger" type="submit" name="deleteRow">
+              Hapus
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <br><br>
+      <button class="btn btn-primary" type="submit">Simpan</button>
+        <a class="btn btn-outline-primary" th:href="@{/presensi}">Batal</a>
+    </form>
+  </div>
+</div>
+</body>
+</html>

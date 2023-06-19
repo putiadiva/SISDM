@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <div class="justify-content-center">
+        <h2>Filter Karyawan</h2>
+        <h3>Berdasarkan Sertifikasi</h3>
+        <form th:action="@{/filter-sertifikasi}">
+            Pilih Sertifikasi
+            <br>
+            <select th:name="idSertifikasi">
+                <div th:each="serti : ${daftarSertifikasi}">
+                    <option th:value="${serti.idSertifikasi}" th:text="${serti.nama}"></option>
+                </div>
+            </select>
+            <br><br>
+            <button class="btn btn-primary" type="submit">Cari</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

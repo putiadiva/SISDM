@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Beranda</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+  <div class="justify-content-center">
+    <h2>Filter Tugas</h2>
+    <h3>Berdasarkan Nama Karyawan dan Status Tugas</h3>
+    <form>
+      Pilih Nama Karyawan
+      <br>
+      <select th:name="idKaryawan">
+        <div th:each="kar : ${daftarKaryawan}">
+          <option th:value="${kar.idKaryawan}" th:text="${kar.namaDepan} + ' ' + ${kar.namaBelakang}"></option>
+        </div>
+      </select>
+      <br><br>
+      Pilih Status
+      <br>
+      <select th:name="status">
+        <option value="0">Dimulai</option>
+        <option value="1">Dikerjakan</option>
+        <option value="2">Selesai</option>
+      </select>
+      <br><br>
+      <button class="btn btn-primary" type="submit">Cari</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

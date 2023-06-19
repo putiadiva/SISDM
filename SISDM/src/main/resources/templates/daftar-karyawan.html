@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Beranda</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container">
+    <div class="justify-content-center">
+        <a class="btn btn-sm btn-primary" th:href="@{karyawan/tambah}" method="GET">Tambah Karyawan</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="k, i : ${daftarKaryawan}">
+                <td th:text="${i.count}"></td>
+                <td th:text="${k.namaDepan} + ' ' + ${k.namaBelakang}"></td>
+                <td th:text="${k.email}"></td>
+                <td>
+                    <a class="btn btn-sm btn-primary" th:href="@{/karyawan/} + ${k.idKaryawan}">Detail</a>
+                    <!--                    <a th:href="@{/}">Insentif</a>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
